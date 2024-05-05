@@ -1,12 +1,12 @@
 import gleam/int
 import gleam/option.{type Option, None, Some, from_result}
 import gleam/pgo
-import gleam/result
 import glenvy/dotenv
 import glenvy/env
 import utils
+import wisp.{log_info}
 
-pub fn db() {
+pub fn connect_to_db() -> pgo.Connection {
   let _ = dotenv.load()
   let host = utils.check_env("PGHOST")
   let assert Ok(port) = int.parse(utils.check_env("PGPORT"))
@@ -25,7 +25,7 @@ pub fn db() {
       password: password,
       pool_size: pool_size,
     )
+  let assert connection = pgo.connect(postgres_config)
+  log_info("Connection to postgres established successfully")
+  connection
 }
-// let db = pgo.connect(postgres_config)
-// let q = first.first_downgrade_sql
-// let response = pgo.execute(q, db,[], dynamic.string)

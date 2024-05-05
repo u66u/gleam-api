@@ -1,5 +1,4 @@
 import gleam/string
-import glenvy/dotenv
 import glenvy/env
 
 pub fn check_env(name: String) -> String {

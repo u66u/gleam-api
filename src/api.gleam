@@ -1,10 +1,16 @@
 import gleam/erlang/process
 import handlers.{handle_request}
 import mist
+import config
 import wisp
+import migrations/first
+import gleam/pgo
+import gleam/dynamic
+import gleam/io
 
 pub fn main() {
   wisp.configure_logger()
+
   let secret_key_base = wisp.random_string(64)
 
   let assert Ok(_) =

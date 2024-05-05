@@ -26,6 +26,7 @@ pub fn handle_request(req: Request) -> Response {
 
   case wisp.path_segments(req) {
     [] -> router.home(req)
+    ["dataset", id] -> router.dataset(req, id) 
     _ -> wisp.not_found()
   }
 }
